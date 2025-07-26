@@ -1,0 +1,41 @@
+table produits
+	lineageTag: 0474cfb7-dc4b-4e12-9c63-490eb4d07e2c
+
+	column 'Id produit'
+		dataType: string
+		lineageTag: bb7cb3ee-ea6d-4463-a86f-6026873bfc16
+		summarizeBy: none
+		sourceColumn: Id produit
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nom produit'
+		dataType: string
+		lineageTag: 8e212cdf-2639-4e9f-976d-c396afc89083
+		summarizeBy: none
+		sourceColumn: Nom produit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Categories
+		dataType: string
+		lineageTag: d69ccf15-67af-4f36-86ac-5688724a3b8b
+		summarizeBy: none
+		sourceColumn: Categories
+
+		annotation SummarizationSetBy = Automatic
+
+	partition produits = m
+		mode: import
+		source =
+				let
+				    Source = vente_ref,
+				    #"Lignes groupées" = Table.Group(Source, {"Id produit", "Nom produit", "Categories"}, {{"Nombre", each Table.RowCount(_), Int64.Type}}),
+				    #"Colonnes supprimées" = Table.RemoveColumns(#"Lignes groupées",{"Nombre"})
+				in
+				    #"Colonnes supprimées"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

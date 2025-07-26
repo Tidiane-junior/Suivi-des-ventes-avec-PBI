@@ -1,0 +1,30 @@
+expression vente_ref =
+		let
+		    Source = Csv.Document(File.Contents("C:\Users\hp\Downloads\PBI\BI_2025\Vente\sales_2.csv"),[Delimiter=",", Columns=13, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"En-têtes promus" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+		    #"Type modifié" = Table.TransformColumnTypes(#"En-têtes promus",{{"OrderID", type text}, {"CustomerID", type text}, {"CompanyName", type text}, {"ProductID", type text}, {"ProductName", type text}, {"Category", type text}, {"RegionID", type text}, {"RegionName", type text}, {"OrderDate", type date}, {"Quantity", Int64.Type}, {"UnitPrice", Int64.Type}, {"TotalPrice", Int64.Type}, {"OrderStatus", type text}}),
+		    #"Colonnes renommées" = Table.RenameColumns(#"Type modifié",{{"OrderID", "Id commande"}, {"CustomerID", "Id client"}, {"CompanyName", "Nom client"}, {"ProductID", "Id produit"}, {"ProductName", "Nom produit"}, {"Category", "Categories"}, {"RegionID", "Id region"}, {"RegionName", "Nom Region"}, {"OrderDate", "Date commande"}, {"Quantity", "Quantite"}}),
+		    #"Type modifié1" = Table.TransformColumnTypes(#"Colonnes renommées",{{"UnitPrice", type number}}),
+		    #"Colonnes renommées1" = Table.RenameColumns(#"Type modifié1",{{"UnitPrice", "Prix unitaire"}}),
+		    #"Type modifié2" = Table.TransformColumnTypes(#"Colonnes renommées1",{{"TotalPrice", type number}}),
+		    #"Colonnes renommées2" = Table.RenameColumns(#"Type modifié2",{{"TotalPrice", "Prix total"}, {"OrderStatus", "Status de la commande"}}),
+		    #"Type modifié3" = Table.TransformColumnTypes(#"Colonnes renommées2",{{"Prix total", Currency.Type}, {"Prix unitaire", Currency.Type}})
+		in
+		    #"Type modifié3"
+	lineageTag: 9e28a422-3802-4a15-b44c-73288f8fd4e9
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression Mesures =
+		let
+		    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Colonne 1" = _t]),
+		    #"Type modifié" = Table.TransformColumnTypes(Source,{{"Colonne 1", type text}}),
+		    #"Colonnes supprimées" = Table.RemoveColumns(#"Type modifié",{"Colonne 1"})
+		in
+		    #"Colonnes supprimées"
+	lineageTag: 4d4e7f0f-81e2-484c-89d3-a245abee68e9
+
+	annotation PBI_ResultType = Table
+

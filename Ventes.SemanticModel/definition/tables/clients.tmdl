@@ -1,0 +1,34 @@
+table clients
+	lineageTag: 0b5a97cb-4b1d-4280-acbc-f8dda218efd4
+
+	column 'Id client'
+		dataType: string
+		lineageTag: ef9ddbf8-c633-4480-b656-275fad842b3d
+		summarizeBy: none
+		sourceColumn: Id client
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nom client'
+		dataType: string
+		lineageTag: e4b8f1f2-ac10-444a-8c04-66a45955f0bb
+		summarizeBy: none
+		sourceColumn: Nom client
+
+		annotation SummarizationSetBy = Automatic
+
+	partition clients = m
+		mode: import
+		source =
+				let
+				    Source = vente_ref,
+				    #"Lignes groupées" = Table.Group(Source, {"Id client", "Nom client"}, {{"Nombre", each Table.RowCount(_), Int64.Type}}),
+				    #"Colonnes supprimées" = Table.RemoveColumns(#"Lignes groupées",{"Nombre"}),
+				    #"Lignes triées" = Table.Sort(#"Colonnes supprimées",{{"Id client", Order.Ascending}})
+				in
+				    #"Lignes triées"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

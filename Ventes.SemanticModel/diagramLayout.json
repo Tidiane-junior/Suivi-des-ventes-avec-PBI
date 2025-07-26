@@ -1,0 +1,86 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 245,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 304.12265358442573,
+            "y": 0
+          },
+          "nodeIndex": "clients",
+          "nodeLineageTag": "0b5a97cb-4b1d-4280-acbc-f8dda218efd4",
+          "size": {
+            "height": 145,
+            "width": 176
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 15,
+            "y": 147.79627641814187
+          },
+          "nodeIndex": "produits",
+          "nodeLineageTag": "0474cfb7-dc4b-4e12-9c63-490eb4d07e2c",
+          "size": {
+            "height": 152,
+            "width": 195
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 303,
+            "y": 160
+          },
+          "nodeIndex": "ventes",
+          "nodeLineageTag": "d7ee9273-6137-4d63-8a80-bcab755e81a7",
+          "size": {
+            "height": 300,
+            "width": 177
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 575.45309863811576,
+            "y": 149.89813820907094
+          },
+          "nodeIndex": "regions",
+          "nodeLineageTag": "af3b5077-da1d-4e8f-882b-5fe99321f2b3",
+          "size": {
+            "height": 145,
+            "width": 149
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 759.45309863811576,
+            "y": 178
+          },
+          "nodeIndex": "Mes mesures",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Toutes les tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Toutes les tables",
+  "defaultDiagram": "Toutes les tables"
+}

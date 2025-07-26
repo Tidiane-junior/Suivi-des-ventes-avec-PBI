@@ -1,0 +1,134 @@
+table ventes
+	lineageTag: d7ee9273-6137-4d63-8a80-bcab755e81a7
+
+	column 'Id commande'
+		dataType: string
+		lineageTag: 2658b1df-9288-4a13-b3be-e98d17611dd9
+		summarizeBy: none
+		sourceColumn: Id commande
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Id client'
+		dataType: string
+		lineageTag: 3e97c619-bab5-4ce6-b82a-c5ff8065fbd7
+		summarizeBy: none
+		sourceColumn: Id client
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nom client'
+		dataType: string
+		lineageTag: 6fba63e6-e0ee-4ca1-bc7a-3920d907b66c
+		summarizeBy: none
+		sourceColumn: Nom client
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Id produit'
+		dataType: string
+		lineageTag: bfca6adb-31c3-458d-bf5f-624d08a8f72f
+		summarizeBy: none
+		sourceColumn: Id produit
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nom produit'
+		dataType: string
+		lineageTag: 68c62ba4-ae40-4aa9-965b-001af16ad1f6
+		summarizeBy: none
+		sourceColumn: Nom produit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Categories
+		dataType: string
+		lineageTag: 032d7ee9-e448-438e-a918-52290dbd76ea
+		summarizeBy: none
+		sourceColumn: Categories
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Id region'
+		dataType: string
+		lineageTag: 6a4ae1ed-9b03-42e5-89d6-698300c17218
+		summarizeBy: none
+		sourceColumn: Id region
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nom Region'
+		dataType: string
+		lineageTag: 8f531949-d9b4-4faa-891f-34951334fd37
+		summarizeBy: none
+		sourceColumn: Nom Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Date commande'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: d0abb5b8-fc1e-4eef-b086-68df6004e4d7
+		summarizeBy: none
+		sourceColumn: Date commande
+
+		variation Variation
+			isDefault
+			relationship: 6e17c44c-3b6c-4953-9728-533a4a5d245a
+			defaultHierarchy: LocalDateTable_0e888feb-5d6d-4e45-bdb0-6cfd3224e4f9.'Hiérarchie de dates'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Quantite
+		dataType: int64
+		formatString: 0
+		lineageTag: 0cf19349-84c3-4435-bf6f-eb27e5fc912b
+		summarizeBy: sum
+		sourceColumn: Quantite
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Prix unitaire'
+		dataType: decimal
+		formatString: #,0.###############\ "€";-#,0.###############\ "€";#,0.###############\ "€"
+		lineageTag: c671b5bc-23c5-435b-8080-2dea1ba19eb8
+		summarizeBy: sum
+		sourceColumn: Prix unitaire
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"fr-FR"}
+
+	column 'Prix total'
+		dataType: decimal
+		formatString: #,0.###############\ "€";-#,0.###############\ "€";#,0.###############\ "€"
+		lineageTag: 20ea9c92-06c5-4912-adf2-eeb4dc8b8d10
+		summarizeBy: sum
+		sourceColumn: Prix total
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"fr-FR"}
+
+	column 'Status de la commande'
+		dataType: string
+		lineageTag: 029cbca9-f4ff-4f21-9c00-f2f90b710543
+		summarizeBy: none
+		sourceColumn: Status de la commande
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ventes = m
+		mode: import
+		source =
+				let
+				    Source = vente_ref
+				in
+				    Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

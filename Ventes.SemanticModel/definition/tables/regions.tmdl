@@ -1,0 +1,33 @@
+table regions
+	lineageTag: af3b5077-da1d-4e8f-882b-5fe99321f2b3
+
+	column 'Id region'
+		dataType: string
+		lineageTag: 56e1ae65-16d0-4a90-957f-fd0ed64c8266
+		summarizeBy: none
+		sourceColumn: Id region
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nom Region'
+		dataType: string
+		lineageTag: 5be4fe30-30a4-4821-9664-88ab946884e8
+		summarizeBy: none
+		sourceColumn: Nom Region
+
+		annotation SummarizationSetBy = Automatic
+
+	partition regions = m
+		mode: import
+		source =
+				let
+				    Source = vente_ref,
+				    #"Lignes groupées" = Table.Group(Source, {"Id region", "Nom Region"}, {{"Nombre", each Table.RowCount(_), Int64.Type}}),
+				    #"Colonnes supprimées" = Table.RemoveColumns(#"Lignes groupées",{"Nombre"})
+				in
+				    #"Colonnes supprimées"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

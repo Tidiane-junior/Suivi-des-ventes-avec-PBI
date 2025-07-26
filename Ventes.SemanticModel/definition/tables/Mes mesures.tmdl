@@ -1,0 +1,53 @@
+table 'Mes mesures'
+	lineageTag: 542d8c83-6db6-4dbc-963d-0f2f0a1c1409
+
+	measure 'Total ventes' = SUM(ventes[Prix total])
+		formatString: #,0.0\ "€";-#,0.0\ "€";#,0.0\ "€"
+		lineageTag: 260314df-c0f7-4947-b062-bf16b722d5f3
+
+		annotation PBI_FormatHint = {"currencyCulture":"fr-FR"}
+
+	measure 'Nombre de commandes' = DISTINCTCOUNT(ventes[Id commande])
+		formatString: 0
+		lineageTag: 3a9e51d6-6f59-4b76-9e41-b8500f5a2918
+
+	measure 'Panier moyen' = DIVIDE([Total ventes], [Nombre de commandes])
+		formatString: #,0\ "€";-#,0\ "€";#,0\ "€"
+		lineageTag: 83121249-8247-4a3a-82d6-01e74ccfdd41
+
+		annotation PBI_FormatHint = {"currencyCulture":"fr-FR"}
+
+	measure 'Quantité vendue' = SUM(ventes[Quantite])
+		formatString: 0
+		lineageTag: 71a758b5-bc0a-4f2f-bdf2-8bbaf8d0c787
+
+	measure 'Tot commandes annulées' = CALCULATE(DISTINCTCOUNT(ventes[Id commande]), ventes[Status de la commande] = "Cancelled")
+		formatString: 0
+		lineageTag: 6cfc59ec-d5ae-4fb3-a86f-375105537e4e
+
+	measure 'Montant Commandes annulées' = ```
+			CALCULATE(SUM(ventes[Prix total]), ventes[Status de la commande] = "Cancelled") 
+			```
+		formatString: #,0\ "€";-#,0\ "€";#,0\ "€"
+		lineageTag: 2adf9713-bcb1-4447-b210-ba6bd3227fc8
+
+		annotation PBI_FormatHint = {"currencyCulture":"fr-FR"}
+
+	measure '% commande annulées' = DIVIDE([Tot commandes annulées], [Nombre de commandes])
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: 05df3c46-3cf7-490f-a63b-1599fb96c383
+
+	partition 'Mes mesures' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Colonne 1" = _t]),
+				    #"Type modifié" = Table.TransformColumnTypes(Source,{{"Colonne 1", type text}}),
+				    #"Colonnes supprimées" = Table.RemoveColumns(#"Type modifié",{"Colonne 1"})
+				in
+				    #"Colonnes supprimées"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+
