@@ -100,9 +100,13 @@ Disposer les éléments visuels selon un modèle prédéfini (maquette).
 ## 8) Création d’info-bulles (tooltips) : Info-bulle pour l’histogramme par région
   
   1- Créer une page dédiée pour afficher la courbe d’évolution des ventes.
+  
   2- Configurer cette page en tant qu’info-bulle (tooltip) pour l’histogramme.
+  
   3- Info-bulle pour le donut par catégorie de produit
+  
   4- Créer une page dédiée avec un visuel “Ruban” pour l’évolution des ventes par produit.
+  
   5- Configurer la page en tant qu’info-bulle pour le donut.
 
 
