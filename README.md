@@ -1,13 +1,14 @@
-## Importer le fichier sales_2.csv dans Power Query
+## Importer le fichier des ventes *sales_2.csv*
 
 ## Analyser le type de données et leur qualité 
 
 ### Utiliser l’analyseur Power Query : 
-  Qualité de la colonne
-  Distribution des colonnes
-  Profil de la colonne
-  Vérifier que les bons types de données sont appliqués à chaque colonne.
-  Renommer les colonnes avec un libellé explicite 
+
+  - Qualité de la colonne
+  - Distribution des colonnes
+  - Profil de la colonne
+  - Vérifier que les bons types de données sont appliqués à chaque colonne.
+  - Renommer les colonnes avec un libellé explicite 
   
 
 ## 3) Normalisation
@@ -47,70 +48,62 @@
 - Régler la hauteur à 2000 px pour la page.
 - Définir la couleur de fond (#1E2D38) et la couleur des briques (#232448).
 Disposer les éléments visuels selon un modèle prédéfini (maquette).
-5.2 Création des mesures DAX
-Créer une table de mesures
-Accueil > Entrer des données > Valider (vide) puis renommer en “Mesures”.
-Définir les mesures principales
-Total ventes = SUM(Ventes[Prix total])
-Nombre de commandes = DISTINCTCOUNT(Ventes[Id commande])
-Quantité vendue = SUM(Ventes[Quantité])
-Commande moyenne = DIVIDE([Total ventes], [Nombre de commandes])
-5.3 Ajout des visuels dans le premier onglet
-4 indicateurs clés (KPI)
-Afficher : 
-Total ventes
-Nombre de commandes
-Quantité vendue
-Commande moyenne
-Personnalisez les éléments pour assurer la cohérence graphique du rapport
-Évolution du chiffre d’affaire et des volumes de ventes dans le temps
-Créer un graphique de type Courbe ou Aires (personnaliser les couleurs dans les sous-menus).
-Répartition du CA par région
-Graphique en barres horizontales pour comparer le chiffre d’affaires par région.
-Répartition du CA par catégorie de produit
-Graphique en Donut (camembert en anneau).
-Tableau des commandes
-Inclure les informations détaillées (id commande, client, produit, etc.).
-Personnaliser les options (couleurs, police…).
-5.4 Ajout des filtres
-Filtre de plage de dates
-Filtre sur le statut de commande
-Filtre sur la région
+
+### 5.2 Création des mesures DAX
+- Créer une table de mesures : *Accueil > Entrer des données > Valider (vide) puis renommer en “Mesures”*.
+- Définir les mesures principales
+  - Total ventes = *SUM*(Ventes[Prix total])
+  - Nombre de commandes = *DISTINCTCOUNT*(Ventes[Id commande])
+  - Quantité vendue = *SUM*(Ventes[Quantité])
+  - Commande moyenne = *DIVIDE*([Total ventes], [Nombre de commandes])
+
+### 5.3 Ajout des visuels dans le premier onglet
+
+#### 4 indicateurs clés (KPI) à afficher : 
+- Total ventes
+- Nombre de commandes
+- Quantité vendue
+- Commande moyenne
+  
+#### Personnalisez les éléments pour assurer la cohérence graphique du rapport
+- Évolution du chiffre d’affaire et des volumes de ventes dans le temps : Créer un graphique de type Courbe ou Aires (personnaliser les couleurs dans les sous-menus).
+- Répartition du CA par région : Graphique en barres horizontales pour comparer le chiffre d’affaires par région.
+- Répartition du CA par catégorie de produit : Graphique en Donut (camembert en anneau).
+- Tableau des commandes : Inclure les informations détaillées (id commande, client, produit, etc.) en Personnalisant les options (couleurs, police…).
+
+### 5.4 Ajout des filtres
+- Filtre de plage de dates
+- Filtre sur le statut de commande
+- Filtre sur la région
 
 ## 6) Création du deuxième onglet (commandes annulées)
-Dupliquer le premier onglet
-Conserver la disposition générale des visuels.
+6.1- Dupliquer le premier onglet
+6.2- Conserver la disposition générale des visuels.
 
 ### Créer 3 nouvelles mesures et Ajouter 3 KPI Basés sur ces mesures.
 
-*Total commandes annulées* = **CALCULATE**(*COUNT*(Ventes[Id commande]), Ventes[Statut commande] = "Cancelled")
-*Montant commandes annulées* = **CALCULATE**(*SUM*(Ventes[Prix total]), Ventes[Statut commande] = "Cancelled")
-*Pourcentage commandes annulées* = **DIVIDE**([Total commandes annulées], [Nombre de commandes])
+1- *Total commandes annulées* = **CALCULATE**(*COUNT*(Ventes[Id commande]), Ventes[Statut commande] = "Cancelled")
+2- *Montant commandes annulées* = **CALCULATE**(*SUM*(Ventes[Prix total]), Ventes[Statut commande] = "Cancelled")
+3- *Pourcentage commandes annulées* = **DIVIDE**([Total commandes annulées], [Nombre de commandes])
 
 ### Visualisation
 
-**Courbe d’évolution du % de commandes annulées**
-**Représenter, dans le temps, l’évolution du pourcentage et du nombre de commandes annulées**.
-**Histogramme vertical**
-Répartition de la part de commandes annulées par région.
-- Treemap
-- Répartition du CA des commandes annulées par catégorie de produits et par produit.
-- Évolution trimestrielle par produit
-- Utiliser la visualisation “Ruban” pour analyser le nombre de commandes annulées par produit, au fil des trimestres.
+ - **Courbe d’évolution du % de commandes annulées** : Représenter, dans le temps, l’évolution du pourcentage et du nombre de commandes annulées.
+ - **Histogramme vertical** : Répartition de la part de commandes annulées par région.
+ - Treemap : **Répartition du CA des commandes annulées par catégorie de produits et par produit**.
+ - **Évolution trimestrielle par produit** : Utiliser la visualisation “Ruban” pour analyser le nombre de commandes annulées par produit, au fil des trimestres.
 
 ## 7) Création du menu
-  Ajouter les icônes fournies 
-  Les placer dans la bande de gauche.
-  Ajouter un lien vers chaque onglet du rapport (navigation).
+  - Ajouter les icônes : les placer dans la bande de gauche.
+  - Ajouter un lien vers chaque onglet du rapport (navigation).
 
-## 8) Création d’info-bulles (tooltips)
-
-  Info-bulle pour l’histogramme par région
-  Créer une page dédiée pour afficher la courbe d’évolution des ventes.
-  Configurer cette page en tant qu’info-bulle (tooltip) pour l’histogramme.
-  Info-bulle pour le donut par catégorie de produit
-  Créer une page dédiée avec un visuel “Ruban” pour l’évolution des ventes par produit.
-  Configurer la page en tant qu’info-bulle pour le donut.
+## 8) Création d’info-bulles (tooltips) : Info-bulle pour l’histogramme par région
+  
+  1- Créer une page dédiée pour afficher la courbe d’évolution des ventes.
+  2- Configurer cette page en tant qu’info-bulle (tooltip) pour l’histogramme.
+  3- Info-bulle pour le donut par catégorie de produit
+  4- Créer une page dédiée avec un visuel “Ruban” pour l’évolution des ventes par produit.
+  5- Configurer la page en tant qu’info-bulle pour le donut.
 
 
 
